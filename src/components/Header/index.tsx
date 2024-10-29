@@ -48,7 +48,7 @@ const Header = () => {
             </nav>
             <div className="user-container">
                 <div className="user-info">
-                    <Link to="/login">
+                    <Link className="user-link" to="/login">
                         <img className="user-icon" src={user} alt="ícone de usuário" />
                     </Link>
                 </div>

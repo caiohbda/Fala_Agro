@@ -127,13 +127,18 @@ li {
     padding: 5px;
     border-radius: 100%;
     background-color: #7fe613;
-    align-items: center;
+    align-items:center;
     justify-content: center;
 }
 
 .user-icon {
     width: 80%;
     cursor: pointer;
+}
+
+.user-link{
+    display: flex;
+    justify-content: center;
 }
 
 @media (max-width: 1024px) {
