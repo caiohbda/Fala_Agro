@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import logo from "../../assets/img/logo.png";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +23,8 @@ const schema = z.object({
 type LoginFormInputs = z.infer<typeof schema>;
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -33,7 +35,10 @@ const LoginPage = () => {
   });
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+    // adicionar lógica de autenticação com o serviço
     console.log(data);
+
+    navigate("/home");
   };
 
   return (
@@ -48,22 +53,22 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="inputsdata">
               <div>
-              <Input
-                label="Email*"
-                id="email"
-                type="email"
-                register={register("email")}
-                error={errors.email?.message}
-              />
-              <Input
-                label="Senha*"
-                id="password"
-                type="password"
-                register={register("password")}
-                error={errors.password?.message}
-              />
+                <Input
+                  label="Email*"
+                  id="email"
+                  type="email"
+                  register={register("email")}
+                  error={errors.email?.message}
+                />
+                <Input
+                  label="Senha*"
+                  id="password"
+                  type="password"
+                  register={register("password")}
+                  error={errors.password?.message}
+                />
               </div>
-              <Checkbox 
+              <Checkbox
                 type="checkbox"
                 id="remember"
                 register={register("remember")}
