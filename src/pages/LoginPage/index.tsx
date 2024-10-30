@@ -7,20 +7,10 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox";
 import * as z from "zod";
+import { login } from "../../services/authService";
+import loginSchema from "../../schemas/loginSchema";
 
-const schema = z.object({
-  email: z
-    .string()
-    .email("E-mail inválido")
-    .nonempty("Esse campo é obrigatório"),
-  password: z
-    .string()
-    .min(8, "Mínimo 8 caracteres")
-    .nonempty("Esse campo é obrigatório"),
-  remember: z.boolean().optional(),
-});
-
-type LoginFormInputs = z.infer<typeof schema>;
+type LoginFormInputs = z.infer<typeof loginSchema>;
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -30,15 +20,18 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(loginSchema),
     mode: "onBlur",
   });
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    // adicionar lógica de autenticação com o serviço
-    console.log(data);
-
-    navigate("/home");
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+    try {
+      const result = await login(data.email, data.password);
+      console.log(result);
+      navigate("/home");
+    } catch (error) {
+      console.error("Erro de login:", error);
+    }
   };
 
   return (
