@@ -9,7 +9,7 @@ const loginSchema = z.object({
     .string()
     .min(8, "Mínimo 8 caracteres")
     .nonempty("Esse campo é obrigatório"),
-  remember: z.boolean().optional(),
+  remember: z.boolean().optional(), // Campo opcional para "Lembrar-me"
 });
 
 export default loginSchema;

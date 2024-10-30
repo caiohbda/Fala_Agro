@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
@@ -14,6 +15,7 @@ type LoginFormInputs = z.infer<typeof loginSchema>;
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const {
     register,
@@ -31,6 +33,7 @@ const LoginPage = () => {
       navigate("/home");
     } catch (error) {
       console.error("Erro de login:", error);
+      setLoginError("Credenciais inválidas. Tente novamente.");
     }
   };
 
@@ -43,6 +46,7 @@ const LoginPage = () => {
           <div className="titlelogin">
             <h1>Login</h1>
           </div>
+          {loginError && <p className="error-message">{loginError}</p>}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="inputsdata">
               <div>

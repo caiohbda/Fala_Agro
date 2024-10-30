@@ -1,7 +1,4 @@
-interface LoginResponse {
-  message: string;
-  userId: string;
-}
+import { LoginResponse } from "../interfaces/LoginResponse";
 
 const API_URL = "http://localhost:8080";
 
