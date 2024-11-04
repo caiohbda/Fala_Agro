@@ -1,4 +1,3 @@
-// src/pages/SignUpPage/index.tsx
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import "./style.css";
@@ -44,35 +43,35 @@ const SignUpPage = () => {
             <div className="inputsdata">
               <Input
                 label="Email*"
-                id="email"
+                id="Email"
                 type="email"
                 register={register("email")}
                 error={errors.email?.message}
               />
               <Input
                 label="Senha*"
-                id="password"
+                id="Password"
                 type="password"
                 register={register("password")}
                 error={errors.password?.message}
               />
               <Input
                 label="Nome Completo*"
-                id="fullName"
+                id="FullName"
                 type="text"
                 register={register("fullName")}
                 error={errors.fullName?.message}
               />
               <Input
                 label="Nome de Usuário*"
-                id="username"
+                id="Username"
                 type="text"
                 register={register("username")}
                 error={errors.username?.message}
               />
               <Input
                 label="Telefone*"
-                id="phoneNumber"
+                id="PhoneNumber"
                 type="text"
                 register={register("phoneNumber")}
                 error={errors.phoneNumber?.message}

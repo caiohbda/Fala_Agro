@@ -3,7 +3,7 @@ import { LoginResponse } from "../interfaces/LoginResponse";
 const API_URL = "http://localhost:8080";
 
 export const login = async (
-  username: string,
+  email: string,
   password: string
 ): Promise<LoginResponse> => {
   try {
@@ -12,11 +12,12 @@ export const login = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     });
 
     if (!response.ok) {
-      throw new Error("Login failed");
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Login failed");
     }
 
     const data: LoginResponse = await response.json();
