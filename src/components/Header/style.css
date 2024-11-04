@@ -127,13 +127,18 @@ li {
     padding: 5px;
     border-radius: 100%;
     background-color: #7fe613;
-    align-items: center;
+    align-items:center;
     justify-content: center;
 }
 
 .user-icon {
     width: 80%;
     cursor: pointer;
+}
+
+.user-link{
+    display: flex;
+    justify-content: center;
 }
 
 @media (max-width: 1024px) {
@@ -150,7 +155,28 @@ li {
     .menu {
         display: block;
     }
-    nav {
+
+    nav{
+        background-color: #80e613d3;
+        width: 125px;
+        padding: 15px 10px;
+        position: absolute;
+        top: 40px;
+        left: 0;
+        z-index: 1;
+        border-radius: 0 20px 20px 0;
+    }
+    nav ul{
+        display: flex;
+        flex-direction: column;
+    }
+    li{
+        text-align: center;
+    }
+    .nav-link{
+        color: #fff;
+    }
+    .mobile-hidden{
         display: none;
     }
 }
