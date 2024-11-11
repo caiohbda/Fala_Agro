@@ -1,56 +1,33 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom"; // Importação do Link
+import { Link } from "react-router-dom";
 import "./style.css";
 import logo from "../../assets/img/logo.png";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import signUpSchema from "../../schemas/singUpSchema"; // Importe o schema
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
+import userService from "../../services/userService";
+import * as z from "zod";
 
-const schema = z.object({
-  email: z
-    .string()
-    .email("E-mail inválido")
-    .nonempty("Esse campo é obrigatório"),
-  password: z
-    .string()
-    .min(8, "Mínimo 8 caracteres")
-    .nonempty("Esse campo é obrigatório"),
-  date: z.string().nonempty("Esse campo é obrigatório"),
-  number: z
-    .string()
-    .length(14, "CPF inválido")
-    .nonempty("Esse campo é obrigatório"),
-});
-
-type LoginFormInputs = z.infer<typeof schema>;
+type SignUpInputs = z.infer<typeof signUpSchema>;
 
 const SignUpPage = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
-  } = useForm<LoginFormInputs>({
-    resolver: zodResolver(schema),
+  } = useForm<SignUpInputs>({
+    resolver: zodResolver(signUpSchema),
     mode: "onBlur",
   });
 
-  const formatCPF = (value: string) => {
-    return value
-      .replace(/\D/g, "")
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-  };
-
-  const handleCPFChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const formattedCPF = formatCPF(event.target.value);
-    setValue("number", formattedCPF);
-  };
-
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<SignUpInputs> = async (data) => {
+    try {
+      await userService.createUser(data); // Chama o serviço para cadastrar o usuário
+      console.log("Usuário cadastrado com sucesso:", data);
+    } catch (error) {
+      console.error("Erro ao cadastrar usuário:", error);
+    }
   };
 
   return (
@@ -66,33 +43,38 @@ const SignUpPage = () => {
             <div className="inputsdata">
               <Input
                 label="Email*"
-                id="email"
+                id="Email"
                 type="email"
                 register={register("email")}
                 error={errors.email?.message}
               />
               <Input
                 label="Senha*"
-                id="password"
+                id="Password"
                 type="password"
                 register={register("password")}
                 error={errors.password?.message}
               />
               <Input
-                label="Data de Nascimento*"
-                id="date"
-                type="date"
-                register={register("date")}
-                error={errors.date?.message}
+                label="Nome Completo*"
+                id="FullName"
+                type="text"
+                register={register("fullName")}
+                error={errors.fullName?.message}
               />
               <Input
-                label="CPF*"
-                id="cpf"
+                label="Nome de Usuário*"
+                id="Username"
                 type="text"
-                register={register("number")}
-                error={errors.number?.message}
-                onChange={handleCPFChange}
-                maxLength={14}
+                register={register("username")}
+                error={errors.username?.message}
+              />
+              <Input
+                label="Telefone*"
+                id="PhoneNumber"
+                type="text"
+                register={register("phoneNumber")}
+                error={errors.phoneNumber?.message}
               />
             </div>
             <div className="button-container">
