@@ -1,5 +1,6 @@
 import Header from "../../components/Header";
 import Card from "../../components/Card";
+import "./style.css";
 
 const EventPage = () => {
   return (

@@ -1,5 +1,6 @@
 import Header from "../../components/Header";
 import Card from "../../components/Card";
+import "./style.css";
 
 const BussinessPage = () => {
   return (
@@ -14,4 +15,4 @@ const BussinessPage = () => {
   );
 };
 
-export default BussinessPage;
+export default BussinessPage
