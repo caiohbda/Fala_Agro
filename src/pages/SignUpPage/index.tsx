@@ -1,9 +1,9 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import logo from "../../assets/img/logo.png";
 import { zodResolver } from "@hookform/resolvers/zod";
-import signUpSchema from "../../schemas/singUpSchema"; // Importe o schema
+import signUpSchema from "../../schemas/singUpSchema";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import userService from "../../services/userService";
@@ -12,6 +12,7 @@ import * as z from "zod";
 type SignUpInputs = z.infer<typeof signUpSchema>;
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,8 +24,9 @@ const SignUpPage = () => {
 
   const onSubmit: SubmitHandler<SignUpInputs> = async (data) => {
     try {
-      await userService.createUser(data); // Chama o serviço para cadastrar o usuário
+      await userService.createUser(data);
       console.log("Usuário cadastrado com sucesso:", data);
+      navigate("/login"); // Redireciona para a página de login
     } catch (error) {
       console.error("Erro ao cadastrar usuário:", error);
     }
@@ -54,6 +56,13 @@ const SignUpPage = () => {
                 type="password"
                 register={register("password")}
                 error={errors.password?.message}
+              />
+              <Input
+                label="Confirme a Senha*"
+                id="ConfirmPassword"
+                type="password"
+                register={register("confirmPassword")}
+                error={errors.confirmPassword?.message}
               />
               <Input
                 label="Nome Completo*"
