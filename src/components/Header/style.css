@@ -174,10 +174,13 @@ li {
         text-align: center;
     }
     .nav-link{
-        color: #fff;
+        color: #fff !important;
     }
     .mobile-hidden{
         display: none;
+    }
+    .mobile-show{
+        display: block;
     }
 }
 
