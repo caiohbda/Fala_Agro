@@ -1,0 +1,19 @@
+.news{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 90%;
+    height: 90%;
+  }
+  .details{
+    text-align: center;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #343434;
+  }
+  .news-link{
+    color:blueviolet;
+    text-decoration: none !important;
+  }
