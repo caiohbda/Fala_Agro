@@ -23,12 +23,18 @@ const SignUpPage = () => {
   });
 
   const onSubmit: SubmitHandler<SignUpInputs> = async (data) => {
+    // Remover o campo confirmPassword antes de enviar para o backend
+    const { ...userData } = data;
+
+    console.log("Dados a serem enviados:", userData); // Verifique os dados antes de enviar
     try {
-      await userService.createUser(data);
-      console.log("Usuário cadastrado com sucesso:", data);
-      navigate("/login"); // Redireciona para a página de login
+      await userService.createUser(userData); // Envia apenas os dados do usuário, sem o confirmPassword
+      console.log("Usuário cadastrado com sucesso:", userData);
+      navigate("/login");
     } catch (error) {
       console.error("Erro ao cadastrar usuário:", error);
+      // Exibir erro para o usuário
+      alert("Erro ao cadastrar o usuário. Tente novamente.");
     }
   };
 
@@ -45,42 +51,42 @@ const SignUpPage = () => {
             <div className="inputsdata">
               <Input
                 label="Email*"
-                id="Email"
+                id="email"
                 type="email"
                 register={register("email")}
                 error={errors.email?.message}
               />
               <Input
                 label="Senha*"
-                id="Password"
+                id="password"
                 type="password"
                 register={register("password")}
                 error={errors.password?.message}
               />
               <Input
                 label="Confirme a Senha*"
-                id="ConfirmPassword"
+                id="confirmpassword"
                 type="password"
                 register={register("confirmPassword")}
                 error={errors.confirmPassword?.message}
               />
               <Input
                 label="Nome Completo*"
-                id="FullName"
+                id="fullName"
                 type="text"
                 register={register("fullName")}
                 error={errors.fullName?.message}
               />
               <Input
                 label="Nome de Usuário*"
-                id="Username"
+                id="username"
                 type="text"
                 register={register("username")}
                 error={errors.username?.message}
               />
               <Input
                 label="Telefone*"
-                id="PhoneNumber"
+                id="phoneNumber"
                 type="text"
                 register={register("phoneNumber")}
                 error={errors.phoneNumber?.message}
