@@ -1,10 +1,11 @@
 import axios from "axios";
 import { IUser } from "../interfaces/IUser";
 
-const API_URL = "http://localhost:8080";
+const API_URL = "http://localhost:3333";
 
 const UserService = {
   createUser: async (userData: IUser) => {
+    console.log("Enviando dados para o servidor:", userData); // Verifique os dados antes de enviar
     try {
       const response = await axios.post(
         `${API_URL}/users`,
@@ -15,11 +16,7 @@ const UserService = {
           Password: userData.password,
           PhoneNumber: userData.phoneNumber,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
       return response.data;
     } catch (error) {

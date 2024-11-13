@@ -1,29 +1,54 @@
+import axios from "axios";
 import { LoginResponse } from "../interfaces/LoginResponse";
 
-const API_URL = "http://localhost:8080";
+const API_URL = "http://localhost:3333"; // URL da sua API
 
-export const login = async (
-  email: string,
-  password: string
-): Promise<LoginResponse> => {
-  try {
-    const response = await fetch(`${API_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+const authService = {
+  login: async (
+    identifier: string,
+    password: string
+  ): Promise<LoginResponse> => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/login`,
+        { identifier, password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Login failed");
+      // Armazena o token no localStorage após o login
+      localStorage.setItem("authToken", response.data.token);
+
+      return response.data; // Retorna a resposta com o token
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      throw error;
+    }
+  },
+
+  getCurrentUser: async () => {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      throw new Error("Token not found");
     }
 
-    const data: LoginResponse = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error during login:", error);
-    throw error;
-  }
+    try {
+      const response = await axios.get(`${API_URL}/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao obter usuário:", error);
+      throw error;
+    }
+  },
 };
+
+export default authService;
