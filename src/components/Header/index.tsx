@@ -7,70 +7,115 @@ import menu from "../../assets/icons/menu.png";
 import "./style.css";
 
 const Header = () => {
-    const menuItems: string[] = ["Home", "Noticias", "Eventos", "Negocios"];
-    const estadosBrasileiros: string[] = [
-        "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
-        "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul",
-        "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro",
-        "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina",
-        "São Paulo", "Sergipe", "Tocantins"
-    ];
+  const menuItems: string[] = ["Home", "Noticias", "Eventos", "Negocios"];
+  const estadosBrasileiros: string[] = [
+    "Acre",
+    "Alagoas",
+    "Amapá",
+    "Amazonas",
+    "Bahia",
+    "Ceará",
+    "Distrito Federal",
+    "Espírito Santo",
+    "Goiás",
+    "Maranhão",
+    "Mato Grosso",
+    "Mato Grosso do Sul",
+    "Minas Gerais",
+    "Pará",
+    "Paraíba",
+    "Paraná",
+    "Pernambuco",
+    "Piauí",
+    "Rio de Janeiro",
+    "Rio Grande do Norte",
+    "Rio Grande do Sul",
+    "Rondônia",
+    "Roraima",
+    "Santa Catarina",
+    "São Paulo",
+    "Sergipe",
+    "Tocantins",
+  ];
 
-    const toggleDropdown = (event: React.MouseEvent) => {
-        const dropdown = event.currentTarget.querySelector('.dropdown');
-        if (dropdown) {
-            dropdown.classList.toggle('show');
-        }
-    };
+  const toggleDropdown = (event: React.MouseEvent) => {
+    const dropdown = event.currentTarget.querySelector(".dropdown");
+    if (dropdown) {
+      dropdown.classList.toggle("show");
+    }
+  };
 
-    const useToggleMenu = (initialClass: string, toggleClass: string) => {
-        const [currentClass, setCurrentClass] = useState<string>(initialClass);
+  const useToggleMenu = (initialClass: string, toggleClass: string) => {
+    const [currentClass, setCurrentClass] = useState<string>(initialClass);
 
-        const handleToggleMenu = () => {
-            setCurrentClass((prevClass) => 
-                prevClass === initialClass ? toggleClass : initialClass
-            );
+    const handleToggleMenu = () => {
+      setCurrentClass((prevClass) =>
+        prevClass === initialClass ? toggleClass : initialClass
+      );
     };
 
     return { currentClass, handleToggleMenu };
-};     
+  };
 
-    const { currentClass, handleToggleMenu} = useToggleMenu("mobile-hidden", "mobile-show");
+  const { currentClass, handleToggleMenu } = useToggleMenu(
+    "mobile-hidden",
+    "mobile-show"
+  );
 
-    return (
-        <header>
-            <img className="menu" src={menu} alt="menu hamburger" onClick={handleToggleMenu}/>
-            <img className="nav-banner" src={logo} alt="Logo Fala Agro" />
-            <img className="nav-logo" src={icon} alt="Fala Agro" />
-            <input className="search" placeholder="Pesquisar..." type="search" name="search" id="search" />
-            <nav className={currentClass}>
-                <ul>
-                    {menuItems.map(item => (
-                        <li key={item} className="nav-item" onClick={item !== "Home" ? toggleDropdown : undefined}>
-                            <Link className="nav-link" to={`/${item.toLowerCase()}`}>{item}</Link>
-                            {item !== "Home" && (
-                                <ul className="dropdown">
-                                    {estadosBrasileiros.map(estado => (
-                                        <li key={estado}>
-                                            <Link to={`/${item.toLowerCase()}/${estado.toLowerCase()}`}>{estado}</Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </li>
-                    ))}
+  return (
+    <header>
+      <img
+        className="menu"
+        src={menu}
+        alt="menu hamburger"
+        onClick={handleToggleMenu}
+      />
+      <img className="nav-banner" src={logo} alt="Logo Fala Agro" />
+      <img className="nav-logo" src={icon} alt="Fala Agro" />
+      <input
+        className="search"
+        placeholder="Pesquisar..."
+        type="search"
+        name="search"
+        id="search"
+      />
+      <nav className={currentClass}>
+        <ul>
+          {menuItems.map((item) => (
+            <li
+              key={item}
+              className="nav-item"
+              onClick={item !== "Home" ? toggleDropdown : undefined}
+            >
+              <Link className="nav-link" to={`/${item.toLowerCase()}`}>
+                {item}
+              </Link>
+              {item !== "Home" && (
+                <ul className="dropdown">
+                  {estadosBrasileiros.map((estado) => (
+                    <li key={estado}>
+                      <Link
+                        to={`/${item.toLowerCase()}/${estado.toLowerCase()}`}
+                      >
+                        {estado}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
-            </nav>
-            <div className="user-container">
-                <div className="user-info">
-                    <Link className="user-link" to="/login">
-                        <img className="user-icon" src={user} alt="ícone de usuário" />
-                    </Link>
-                </div>
-            </div>
-        </header>
-    );
-}
-
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="user-container">
+        <div className="user-info">
+          <Link className="user-link" to="/perfil">
+            <img className="user-icon" src={user} alt="ícone de usuário" />
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+};
 
 export default Header;

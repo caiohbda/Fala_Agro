@@ -6,9 +6,12 @@ const EventPage = () => {
   return (
     <div>
       <Header />
+      <div className="button-container">
+        <button className="create-event-button">Criar evento</button>
+      </div>
       <main className="feed">
-        {[1, 2, 3, 4, 5, 6].map(() => (
-          <Card />
+        {[1, 2, 3, 4, 5, 6].map((_, index) => (
+          <Card key={index} />
         ))}
       </main>
     </div>
