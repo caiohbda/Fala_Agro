@@ -1,8 +1,11 @@
 header {
+    height: 8vh;
     display: flex;
-    padding: 10px 50px;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0px 5px 5px 0px rgb(226, 202, 202);
+    background: rgb(140,232,117);
+    background: linear-gradient(90deg, rgba(140,232,117,1) 0%, rgba(255,255,255,1) 100%);   
 }
 
 .menu {
@@ -63,7 +66,7 @@ li {
 }
 
 .nav-link {
-    color: #000;
+    color: rgb(47, 192, 10) !important;
 }
 
 .nav-link:hover {
