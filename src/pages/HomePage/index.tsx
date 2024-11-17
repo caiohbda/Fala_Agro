@@ -6,16 +6,8 @@ import Footer from "../../components/Footer";
 import Main from "../../components/Main";
 import News from "../../components/News";
 import Carousel from "../../components/Carousel";
+import { NoticiasResponse } from "../../interfaces/NoticiaAPI";
 
-interface Noticia {
-  image: string;
-  title: string;
-  content: string;
-}
-
-interface NoticiasResponse {
-  noticias: Noticia[];
-}
 
 const HomePage = () => {
   const [data, setData] = useState<NoticiasResponse>({noticias: []});
@@ -44,7 +36,7 @@ const HomePage = () => {
       <Main>
       <div className="carousel-container">
           <Carousel />
-        </div>
+      </div>
         {data.noticias.slice(0, 3).map((noticia, index) => (
           <News
             key={index}
