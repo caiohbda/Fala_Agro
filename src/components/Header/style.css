@@ -184,6 +184,7 @@ li {
     }
     .mobile-show{
         display: block;
+        z-index: 2;
     }
 }
 
