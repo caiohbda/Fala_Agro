@@ -6,7 +6,9 @@ import { NoticiasResponse } from "../../interfaces/NoticiaAPI";
 import "./style.css";
 
 const BussinessPage = () => {
-  const {data, isLoading, error} = useFetch<NoticiasResponse>("http://127.0.0.1:3333/noticias");
+  const { data, isLoading, error } = useFetch<NoticiasResponse>(
+    "http://127.0.0.1:3333/noticias"
+  );
 
   if (isLoading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;
@@ -14,15 +16,12 @@ const BussinessPage = () => {
   return (
     <div>
       <Header />
-      <div className="button-container">
-        <button className="create-event-button">Publicar Notícia</button>
+      <div className="button-containerr">
+        <button className="create-event-button">Publicar Novo Negocio</button>
       </div>
       <main className="feed">
-        {data?.noticias.slice(12, 16).map(noticia => (
-          <Card 
-          image={noticia.image}
-          title={noticia.title}
-        />
+        {data?.noticias.slice(12, 16).map((noticia) => (
+          <Card image={noticia.image} title={noticia.title} />
         ))}
       </main>
       <Footer />
@@ -30,4 +29,4 @@ const BussinessPage = () => {
   );
 };
 
-export default BussinessPage
+export default BussinessPage;

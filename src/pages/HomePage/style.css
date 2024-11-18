@@ -1,13 +1,14 @@
-.carousel-container{
+.carousel-container {
   grid-row: span 3;
   height: 70vh;
   width: 65vw;
+  margin-bottom: 35px;
 }
 
 @media (max-width: 1024px) {
-  .carousel-container{
+  .carousel-container {
     height: 40vh;
-    width: 100%;  
+    width: 100%;
     grid-column: span 3;
   }
 }
