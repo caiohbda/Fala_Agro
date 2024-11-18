@@ -3,7 +3,7 @@ import Card from "../../components/Card";
 import Footer from "../../components/Footer";
 import { useFetch } from "../../hooks/useFetch";
 import { NoticiasResponse } from "../../interfaces/NoticiaAPI";
-import "./style.css";
+import "./style.css"
 
 const BussinessPage = () => {
   const { data, isLoading, error } = useFetch<NoticiasResponse>(

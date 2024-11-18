@@ -12,10 +12,9 @@ const Button: React.FC<ButtonProps> = ({
   value,
   type = "button",
   onClick,
-  className,
 }) => {
   return (
-    <button type={type} onClick={onClick} className={className}>
+    <button type={type} onClick={onClick} className="login-button">
       {value}
     </button>
   );
