@@ -1,0 +1,14 @@
+main{
+    display: grid;
+    grid-template-columns: 1fr .5fr;
+    align-items: center;
+    justify-content: center;
+    height: 77vh;
+    padding: 10px;
+}
+
+@media (max-width: 1024px) {
+    main{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
