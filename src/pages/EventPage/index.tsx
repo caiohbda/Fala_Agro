@@ -3,10 +3,17 @@ import Card from "../../components/Card";
 import Footer from "../../components/Footer";
 import { useFetch } from "../../hooks/useFetch";
 import { NoticiasResponse } from "../../interfaces/NoticiaAPI";
-import "./style.css";
+import { useNavigate } from "react-router-dom"; // Importe o hook
 
-const BussinessPage = () => {
-  const {data, isLoading, error} = useFetch<NoticiasResponse>("http://127.0.0.1:3333/noticias");
+const EventPage = () => {
+  const { data, isLoading, error } = useFetch<NoticiasResponse>(
+    "http://127.0.0.1:3333/noticias"
+  );
+  const navigate = useNavigate(); // Inicialize o hook
+
+  const handleNavigateToPostEvent = () => {
+    navigate("/publicar-evento");
+  };
 
   if (isLoading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;
@@ -14,15 +21,17 @@ const BussinessPage = () => {
   return (
     <div>
       <Header />
-      <div className="button-container">
-        <button className="create-event-button">Publicar Notícia</button>
+      <div className="button-containerr">
+        <button
+          className="create-event-button"
+          onClick={handleNavigateToPostEvent}
+        >
+          Publicar Evento
+        </button>
       </div>
       <main className="feed">
-        {data?.noticias.slice(6, 12).map(noticia => (
-          <Card 
-          image={noticia.image}
-          title={noticia.title}
-        />
+        {data?.noticias.slice(6, 12).map((noticia) => (
+          <Card image={noticia.image} title={noticia.title} />
         ))}
       </main>
       <Footer />
@@ -30,4 +39,4 @@ const BussinessPage = () => {
   );
 };
 
-export default BussinessPage
+export default EventPage;

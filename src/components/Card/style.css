@@ -1,46 +1,61 @@
-.feed-item{
+.feed-item {
   display: flex;
+  flex-direction: column;
   width: 30vw;
   height: 15vw;
   position: relative;
   z-index: -1;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.feed-item img{
-  height: 100%;
+.feed-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.feed-item img {
   width: 100%;
+  height: 80%;
   object-fit: cover;
 }
 
-.feed-container{
-  width: 70%;
-  position: absolute;
-  top: 20px;
-  left: 20px; 
+.feed-container {
+  width: 100%;
+  position: relative;
+  padding: 10px;
 }
 
-.feed-item h2{
-  font-size: 1.2rem;
-  text-align: left;
+.feed-item h2 {
+  font-size: 1rem;
+  text-align: center;
   color: black;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.feed-item p{
+.feed-item p {
   overflow: hidden;
 }
 
-@media(max-width: 1024px) {
-  .feed-item h2{
-    font-size: .8rem;
+@media (max-width: 1024px) {
+  .feed-item h2 {
+    font-size: 0.8rem; /* Fonte ainda menor para dispositivos móveis */
   }
 }
 
-@media(max-width: 640px){
-  .feed-item{
+@media (max-width: 640px) {
+  .feed-item {
     width: 45vw;
-    height: 15vh
+    height: 20vh; /* Ajusta a altura para dispositivos móveis */
   }
-  .feed-item h2{
-    font-size: 0.8rem;
+  .feed-item h2 {
+    font-size: 0.8rem; /* Fonte ajustada */
   }
 }

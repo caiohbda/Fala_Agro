@@ -7,9 +7,10 @@ import Carousel from "../../components/Carousel";
 import { NoticiasResponse } from "../../interfaces/NoticiaAPI";
 import { useFetch } from "../../hooks/useFetch";
 
-
 const HomePage = () => {
-  const {data, isLoading, error} = useFetch<NoticiasResponse>("http://127.0.0.1:3333/noticias");
+  const { data, isLoading, error } = useFetch<NoticiasResponse>(
+    "http://127.0.0.1:3333/noticias"
+  );
 
   if (isLoading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;
@@ -18,9 +19,9 @@ const HomePage = () => {
     <div className="homepage">
       <Header />
       <Main>
-      <div className="carousel-container">
+        <div className="carousel-container">
           <Carousel />
-      </div>
+        </div>
         {data?.noticias?.slice(0, 3).map((noticia, index) => (
           <News
             key={index}
@@ -34,6 +35,5 @@ const HomePage = () => {
     </div>
   );
 };
-
 
 export default HomePage;
