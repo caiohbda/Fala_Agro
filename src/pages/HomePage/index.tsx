@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import Main from "../../components/Main";
 import News from "../../components/News";
 import Carousel from "../../components/Carousel";
-import { NoticiasResponse } from "../../interfaces/NoticiaAPI";
+import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
 import { useFetch } from "../../hooks/useFetch";
 
 const HomePage = () => {

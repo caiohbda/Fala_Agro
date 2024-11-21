@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import Card from "../../components/Card";
 import Footer from "../../components/Footer";
 import { useFetch } from "../../hooks/useFetch";
-import { NoticiasResponse } from "../../interfaces/NoticiaAPI";
+import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
 import "./style.css";
 
 const BussinessPage = () => {
