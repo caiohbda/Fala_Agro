@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginResponse } from "../interfaces/LoginResponse";
+import { LoginResponse } from "../interfaces/ILoginResponse";
 
 const API_URL = "http://localhost:3333"; // URL da sua API
 

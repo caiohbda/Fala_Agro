@@ -6,61 +6,52 @@ import icon from "../../assets/icons/simbolo-falaagro-1.png";
 import menu from "../../assets/icons/menu.png";
 import "./style.css";
 
-const Header = () => {
+interface HeaderProps {
+  onStateChange?: (estado: string) => void; // Tornando a prop opcional
+}
+
+const Header: React.FC<HeaderProps> = ({ onStateChange }) => {
   const menuItems: string[] = ["Home", "Noticias", "Eventos", "Negocios"];
-  const estadosBrasileiros: string[] = [
-    "Acre",
-    "Alagoas",
-    "Amapá",
-    "Amazonas",
-    "Bahia",
-    "Ceará",
-    "Distrito Federal",
-    "Espírito Santo",
-    "Goiás",
-    "Maranhão",
-    "Mato Grosso",
-    "Mato Grosso do Sul",
-    "Minas Gerais",
-    "Pará",
-    "Paraíba",
-    "Paraná",
-    "Pernambuco",
-    "Piauí",
-    "Rio de Janeiro",
-    "Rio Grande do Norte",
-    "Rio Grande do Sul",
-    "Rondônia",
-    "Roraima",
-    "Santa Catarina",
-    "São Paulo",
-    "Sergipe",
-    "Tocantins",
-  ];
-
-  const toggleDropdown = (event: React.MouseEvent) => {
-    const dropdown = event.currentTarget.querySelector(".dropdown");
-    if (dropdown) {
-      dropdown.classList.toggle("show");
-    }
+  const estadosBrasileiros: { [key: string]: string } = {
+    Acre: "AC",
+    Alagoas: "AL",
+    Amapá: "AP",
+    Amazonas: "AM",
+    Bahia: "BA",
+    Ceará: "CE",
+    "Distrito Federal": "DF",
+    "Espírito Santo": "ES",
+    Goiás: "GO",
+    Maranhão: "MA",
+    "Mato Grosso": "MT",
+    "Mato Grosso do Sul": "MS",
+    "Minas Gerais": "MG",
+    Pará: "PA",
+    Paraíba: "PB",
+    Paraná: "PR",
+    Pernambuco: "PE",
+    Piauí: "PI",
+    "Rio de Janeiro": "RJ",
+    "Rio Grande do Norte": "RN",
+    "Rio Grande do Sul": "RS",
+    Rondônia: "RO",
+    Roraima: "RR",
+    "Santa Catarina": "SC",
+    "São Paulo": "SP",
+    Sergipe: "SE",
+    Tocantins: "TO",
   };
 
-  const useToggleMenu = (initialClass: string, toggleClass: string) => {
-    const [currentClass, setCurrentClass] = useState<string>(initialClass);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    const handleToggleMenu = () => {
-      setCurrentClass((prevClass) =>
-        prevClass === initialClass ? toggleClass : initialClass
-      );
-    };
-
-    return { currentClass, handleToggleMenu };
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
   };
 
-  const { currentClass, handleToggleMenu } = useToggleMenu(
-    "mobile-hidden",
-    "mobile-show"
-  );
+  const handleStateChange = (estado: string) => {
+    if (onStateChange) onStateChange(estado);
+    setIsDropdownOpen(false);
+  };
 
   return (
     <header>
@@ -68,7 +59,7 @@ const Header = () => {
         className="menu"
         src={menu}
         alt="menu hamburger"
-        onClick={handleToggleMenu}
+        onClick={toggleDropdown}
       />
       <img className="nav-banner" src={logo} alt="Logo Fala Agro" />
       <img className="nav-logo" src={icon} alt="Fala Agro" />
@@ -79,7 +70,7 @@ const Header = () => {
         name="search"
         id="search"
       />
-      <nav className={currentClass}>
+      <nav className={isDropdownOpen ? "mobile-show" : "mobile-hidden"}>
         <ul>
           {menuItems.map((item) => (
             <li
@@ -92,13 +83,16 @@ const Header = () => {
               </Link>
               {item !== "Home" && (
                 <ul className="dropdown">
-                  {estadosBrasileiros.map((estado) => (
+                  {Object.keys(estadosBrasileiros).map((estado) => (
                     <li key={estado}>
-                      <Link
-                        to={`/${item.toLowerCase()}/${estado.toLowerCase()}`}
+                      <a
+                        onClick={() =>
+                          handleStateChange(estadosBrasileiros[estado])
+                        }
+                        className="dropdown-item"
                       >
                         {estado}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>
