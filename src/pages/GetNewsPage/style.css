@@ -1,0 +1,22 @@
+.main-news{
+    display: flex;
+}
+
+.container-news{
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+    gap: 20px;
+}
+
+.container-news p {
+    width: 90%;
+    font-size: 1rem;
+    text-align: justify;
+    line-height: 20px;
+}
+
+.img-news{
+   width: 50%;
+   border-radius: 20px;
+}

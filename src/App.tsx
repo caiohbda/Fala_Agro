@@ -9,9 +9,12 @@ import BusinessPage from "./pages/BusinessPage";
 import ProfilePage from "./pages/ProfilePage";
 import PostEventPage from "./pages/PostEventPage";
 import PostNewsPage from "./pages/PostNewsPage";
+import PostBusinessPage from "./pages/PostBusinessPage";
+import GetNewsPage from "./pages/GetNewsPage";
 
 import "./index.css";
-import PostBusinessPage from "./pages/PostBusinessPage";
+
+
 
 function App() {
   return (
@@ -28,6 +31,7 @@ function App() {
         <Route path="/publicar-evento" element={<PostEventPage />} />{" "}
         <Route path="/publicar-noticia" element={<PostNewsPage />} />
         <Route path="publicar-negocio" element={<PostBusinessPage />} />
+        <Route path="/noticia" element={<GetNewsPage />} />
       </Routes>
     </BrowserRouter>
   );
