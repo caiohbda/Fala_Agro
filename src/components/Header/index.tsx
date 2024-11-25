@@ -7,7 +7,7 @@ import menu from "../../assets/icons/menu.png";
 import "./style.css";
 
 interface HeaderProps {
-  onStateChange?: (estado: string) => void; // Tornando a prop opcional
+  onStateChange?: (estado: string) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onStateChange }) => {
