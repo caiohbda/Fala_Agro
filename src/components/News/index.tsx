@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import "./style.css"
 
 interface NewsProps{
@@ -18,7 +19,7 @@ const News: React.FC<NewsProps> = ({
                 <div className="news-container">
                     <p className="news-title">{title}</p>
                     <p className="news-content">{content}</p>
-                    <a href="#" className="news-link">Saiba Mais</a>
+                    <Link to="/noticia" className="news-link">Saiba Mais</Link>
                 </div>
             </div>
     )
