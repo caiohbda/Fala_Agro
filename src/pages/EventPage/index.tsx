@@ -3,24 +3,42 @@ import Card from "../../components/Card";
 import Footer from "../../components/Footer";
 import { useFetch } from "../../hooks/useFetch";
 import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
-import { useNavigate } from "react-router-dom"; // Importe o hook
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const EventPage = () => {
   const { data, isLoading, error } = useFetch<NoticiasResponse>(
     "http://127.0.0.1:3333/noticias"
   );
-  const navigate = useNavigate(); // Inicialize o hook
+
+  const [selectedState, setSelectedState] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const handleNavigateToPostEvent = () => {
     navigate("/publicar-evento");
   };
+
+  const handleStateChange = (state: string) => {
+    setSelectedState(state);
+    console.log("Estado selecionado:", state);
+  };
+
+  const filteredNews = data?.noticias.filter((noticia) => {
+    console.log("Filtrando notícia:", noticia.state);
+    return selectedState ? noticia.state === selectedState : true;
+  });
+
+  const displayedNews = selectedState
+    ? filteredNews?.slice(0, 6)
+    : filteredNews?.slice(6, 12);
 
   if (isLoading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;
 
   return (
     <div>
-      <Header />
+      <Header onStateChange={handleStateChange} />
       <div className="button-containerr">
         <button
           className="create-event-button"
@@ -30,8 +48,12 @@ const EventPage = () => {
         </button>
       </div>
       <main className="feed">
-        {data?.noticias.slice(6, 12).map((noticia) => (
-          <Card image={noticia.image} title={noticia.title} />
+        {displayedNews?.map((noticia) => (
+          <Card
+            key={noticia.content}
+            image={noticia.image}
+            title={noticia.title}
+          />
         ))}
       </main>
       <Footer />
