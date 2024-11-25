@@ -4,6 +4,7 @@ import Card from "../../components/Card";
 import Footer from "../../components/Footer";
 import { useFetch } from "../../hooks/useFetch";
 import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
+import { Link } from "react-router-dom";
 import "./style.css";
 import { useState } from "react";
 
@@ -45,11 +46,13 @@ const BussinessPage = () => {
       </div>
       <main className="feed">
         {displayedNews?.map((noticia) => (
-          <Card
-            key={noticia.content}
-            image={noticia.image}
-            title={noticia.title}
-          />
+          <Link to="/negocio">
+            <Card
+              key={noticia.content}
+              image={noticia.image}
+              title={noticia.title}
+            />
+          </Link>
         ))}
       </main>
       <Footer />

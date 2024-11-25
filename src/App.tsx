@@ -11,6 +11,8 @@ import PostEventPage from "./pages/PostEventPage";
 import PostNewsPage from "./pages/PostNewsPage";
 import PostBusinessPage from "./pages/PostBusinessPage";
 import GetNewsPage from "./pages/GetNewsPage";
+import GetEventPage from "./pages/GetEventPage";
+import GetBusinessPage from "./pages/GetBusinessPage";
 
 import "./index.css";
 
@@ -32,6 +34,8 @@ function App() {
         <Route path="/publicar-noticia" element={<PostNewsPage />} />
         <Route path="publicar-negocio" element={<PostBusinessPage />} />
         <Route path="/noticia" element={<GetNewsPage />} />
+        <Route path="/evento" element={<GetEventPage />} />
+        <Route path="/negocio" element={<GetBusinessPage />} />
       </Routes>
     </BrowserRouter>
   );
