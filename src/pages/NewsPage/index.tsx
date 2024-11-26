@@ -1,36 +1,53 @@
 import Header from "../../components/Header";
 import Card from "../../components/Card";
 import Footer from "../../components/Footer";
-import { useFetch } from "../../hooks/useFetch";
+import { useState, useEffect } from "react";
+import newsService from "../../services/newsService";
 import { Link } from "react-router-dom";
 import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
-import { useNavigate } from "react-router-dom"; // Importe o useNavigate
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NewsPage = () => {
-  const { data, isLoading, error } = useFetch<NoticiasResponse>(
-    "http://127.0.0.1:3333/noticias"
-  );
-
+  const [data, setData] = useState<NoticiasResponse | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
   const [selectedState, setSelectedState] = useState<string>("");
 
-  const navigate = useNavigate(); // Defina o hook de navegação
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchNoticias = async () => {
+      try {
+        const noticiasData = await newsService.getNoticias();
+        setData(noticiasData);
+      } catch (error) {
+        setError("Erro ao carregar as notícias");
+        console.error("Erro ao carregar as notícias", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchNoticias();
+  }, []);
 
   const handleCreateNews = () => {
-    navigate("/publicar-noticia"); // Roteamento para a página de criar notícia
+    navigate("/publicar-noticia");
   };
 
   const handleStateChange = (state: string) => {
-    setSelectedState(state); // Atualiza o estado selecionado
+    setSelectedState(state);
   };
 
-  // Filtra as notícias com base no estado selecionado
   const filteredNews = data?.noticias.filter((noticia) =>
     selectedState ? noticia.state === selectedState : true
   );
 
   if (isLoading) return <p>Carregando...</p>;
-  if (error) return <p>Erro: {error}</p>;
+  if (error) return <p>{error}</p>;
+  if (!data || data.noticias.length === 0) {
+    return <p>Não há notícias disponíveis.</p>;
+  }
 
   return (
     <div>
@@ -43,11 +60,7 @@ const NewsPage = () => {
       <main className="feed">
         {filteredNews?.slice(0, 6).map((noticia) => (
           <Link to="/noticia">
-          <Card
-            key={noticia.content}
-            image={noticia.image}
-            title={noticia.title}
-          />
+            <Card image={noticia.image} title={noticia.title} />
           </Link>
         ))}
       </main>

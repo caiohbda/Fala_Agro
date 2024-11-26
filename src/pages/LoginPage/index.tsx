@@ -8,7 +8,7 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox";
 import * as z from "zod";
-import authService from "../../services/authService"; // Importando o authService
+import authService from "../../services/authService";
 import loginSchema from "../../schemas/loginSchema";
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
@@ -28,7 +28,7 @@ const LoginPage = () => {
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
-      const result = await authService.login(data.email, data.password); // Usando o método login de authService
+      const result = await authService.login(data.email, data.password);
       console.log(result);
       navigate("/home");
     } catch (error) {

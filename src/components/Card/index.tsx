@@ -1,10 +1,6 @@
 import React from "react";
 import "./style.css";
-
-interface CardProps {
-  image?: string;
-  title?: string;
-}
+import { CardProps } from "../../interfaces/ICard";
 
 const Card: React.FC<CardProps> = ({ image, title }) => {
   return (

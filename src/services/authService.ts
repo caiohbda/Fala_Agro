@@ -1,7 +1,7 @@
 import axios from "axios";
 import { LoginResponse } from "../interfaces/ILoginResponse";
 
-const API_URL = "http://localhost:3333"; // URL da sua API
+const API_URL = "https://api-falaagro-production.up.railway.app";
 
 const authService = {
   login: async (
@@ -19,10 +19,9 @@ const authService = {
         }
       );
 
-      // Armazena o token no localStorage após o login
       localStorage.setItem("authToken", response.data.token);
 
-      return response.data; // Retorna a resposta com o token
+      return response.data;
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       throw error;

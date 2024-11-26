@@ -1,12 +1,27 @@
 import "./style.css";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
-import { useFetch } from "../../hooks/useFetch";
+import { useEffect, useState } from "react";
+import UserService from "../../services/userService";
 import { User } from "../../interfaces/IUserAPI";
 
 const ProfilePage = () => {
-  const { data } = useFetch<User[]>("http://127.0.0.1:3333/users");
+  const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const users = await UserService.getUser();
+        const loggedInUser = users[0];
+        setUser(loggedInUser);
+      } catch (error) {
+        console.error("Erro ao buscar dados do usuário", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleEditProfile = () => {
     navigate("/editar-perfil");
@@ -26,8 +41,6 @@ const ProfilePage = () => {
       navigate("/login");
     }
   };
-
-  const user = data ? data[0] : null;
 
   return (
     <div className="ProfilePage">

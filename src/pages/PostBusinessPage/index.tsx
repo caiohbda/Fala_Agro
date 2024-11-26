@@ -36,16 +36,13 @@ const PostBusinessPage: React.FC = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data: BusinessFormData) => {
-    // Simula o envio dos dados
     const formData = {
       ...data,
-      image: data.image?.[0], // Mantém a imagem (se houver)
+      image: data.image?.[0],
     };
 
-    // Exibe os dados no console
     console.log("Dados enviados do formulário:", formData);
 
-    // Redireciona para a página de negócios
     navigate("/negocios");
   };
 

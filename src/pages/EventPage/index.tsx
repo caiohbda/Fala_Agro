@@ -1,20 +1,17 @@
 import Header from "../../components/Header";
 import Card from "../../components/Card";
 import Footer from "../../components/Footer";
-import { useFetch } from "../../hooks/useFetch";
+import { useState, useEffect } from "react";
+import newsService from "../../services/newsService";
 import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const EventPage = () => {
-  const { data, isLoading, error } = useFetch<NoticiasResponse>(
-    "http://127.0.0.1:3333/noticias"
-  );
-
-  const [selectedState, setSelectedState] = useState<string>("");
-
   const navigate = useNavigate();
+  const [data, setData] = useState<NoticiasResponse | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [selectedState, setSelectedState] = useState<string>("");
 
   const handleNavigateToPostEvent = () => {
     navigate("/publicar-evento");
@@ -24,6 +21,21 @@ const EventPage = () => {
     setSelectedState(state);
     console.log("Estado selecionado:", state);
   };
+
+  useEffect(() => {
+    const fetchNoticias = async () => {
+      try {
+        const noticiasData = await newsService.getNoticias();
+        setData(noticiasData);
+      } catch {
+        // Removido o estado de erro, pois não é mais utilizado
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchNoticias();
+  }, []);
 
   const filteredNews = data?.noticias.filter((noticia) => {
     console.log("Filtrando notícia:", noticia.state);
@@ -35,7 +47,6 @@ const EventPage = () => {
     : filteredNews?.slice(6, 12);
 
   if (isLoading) return <p>Carregando...</p>;
-  if (error) return <p>Erro: {error}</p>;
 
   return (
     <div>
@@ -50,12 +61,8 @@ const EventPage = () => {
       </div>
       <main className="feed">
         {displayedNews?.map((noticia) => (
-          <Link to="/evento">
-            <Card
-              key={noticia.content}
-              image={noticia.image}
-              title={noticia.title}
-            />
+          <Link to="/evento" key={noticia.title}>
+            <Card image={noticia.image} title={noticia.title} />
           </Link>
         ))}
       </main>

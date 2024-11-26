@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
+import { HeaderProps } from "../../interfaces/IHeader";
 import logo from "../../assets/img/logo.png";
 import user from "../../assets/icons/user.png";
 import icon from "../../assets/icons/simbolo-falaagro-1.png";
 import menu from "../../assets/icons/menu.png";
 import "./style.css";
-
-interface HeaderProps {
-  onStateChange?: (estado: string) => void;
-}
 
 const Header: React.FC<HeaderProps> = ({ onStateChange }) => {
   const menuItems: string[] = ["Home", "Noticias", "Eventos", "Negocios"];
