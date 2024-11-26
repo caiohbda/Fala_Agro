@@ -21,8 +21,6 @@ const GetNewsPage = () => {
                 <div className="container-news">
                     <h1>{data?.noticias[12].title}</h1>
                     <p>Informações: {data?.noticias[12].content}</p>
-                    <p>Localização: Ouro Preto - MG</p>
-                    <p>Celular: (31) 93123-2434</p>
                     <input type="button" value="Entrar em Contato" className="create-event-button" />
                 </div>
             </main>

@@ -20,3 +20,24 @@
    width: 50%;
    border-radius: 20px;
 }
+
+@media (max-width: 1024px) {
+    .main-news{
+        flex-direction: column;
+    }
+
+    .container-news{
+        align-items: center;
+    }
+
+    .container-news h1 {
+        margin-top: 5px;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .container-news p {
+        height: 120px;
+        overflow: scroll;
+    }
+}
