@@ -23,12 +23,11 @@ const SignUpPage = () => {
   });
 
   const onSubmit: SubmitHandler<SignUpInputs> = async (data) => {
-    // Remover o campo confirmPassword antes de enviar para o backend
     const { ...userData } = data;
 
-    console.log("Dados a serem enviados:", userData); // Verifique os dados antes de enviar
+    console.log("Dados a serem enviados:", userData);
     try {
-      await userService.createUser(userData); // Envia apenas os dados do usuário, sem o confirmPassword
+      await userService.createUser(userData);
       console.log("Usuário cadastrado com sucesso:", userData);
       navigate("/login");
     } catch (error) {

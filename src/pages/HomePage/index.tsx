@@ -4,13 +4,33 @@ import Footer from "../../components/Footer";
 import Main from "../../components/Main";
 import News from "../../components/News";
 import Carousel from "../../components/Carousel";
-import { NoticiasResponse } from "../../interfaces/NoticiaAPI";
-import { useFetch } from "../../hooks/useFetch";
+import { useEffect, useState } from "react";
+import { newsService } from "../../services/newsService";
+import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
 
 const HomePage = () => {
-  const { data, isLoading, error } = useFetch<NoticiasResponse>(
-    "http://127.0.0.1:3333/noticias"
-  );
+  const [data, setData] = useState<NoticiasResponse | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchNoticias = async () => {
+      try {
+        const noticiasData = await newsService.getNoticias();
+        setData(noticiasData);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("Erro ao carregar as notícias");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchNoticias();
+  }, []);
 
   if (isLoading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;

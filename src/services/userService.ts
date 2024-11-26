@@ -1,14 +1,12 @@
-import axios from "axios";
+import api from "../api/api";
 import { IUser } from "../interfaces/IUser";
-
-const API_URL = "http://localhost:3333";
 
 const UserService = {
   createUser: async (userData: IUser) => {
-    console.log("Enviando dados para o servidor:", userData); // Verifique os dados antes de enviar
+    console.log("Enviando dados para o servidor:", userData);
     try {
-      const response = await axios.post(
-        `${API_URL}/users`,
+      const response = await api.post(
+        "/users",
         {
           FullName: userData.fullName,
           Username: userData.username,
@@ -21,6 +19,16 @@ const UserService = {
       return response.data;
     } catch (error) {
       console.error("Erro ao criar usuário", error);
+      throw error;
+    }
+  },
+
+  getUser: async () => {
+    try {
+      const response = await api.get("/users");
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao obter dados do usuário", error);
       throw error;
     }
   },

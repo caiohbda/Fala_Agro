@@ -1,7 +1,5 @@
-import axios from "axios";
-import { LoginResponse } from "../interfaces/LoginResponse";
-
-const API_URL = "http://localhost:3333"; // URL da sua API
+import api from "../api/api";
+import { LoginResponse } from "../interfaces/ILoginResponse";
 
 const authService = {
   login: async (
@@ -9,8 +7,8 @@ const authService = {
     password: string
   ): Promise<LoginResponse> => {
     try {
-      const response = await axios.post(
-        `${API_URL}/login`,
+      const response = await api.post(
+        "/login",
         { identifier, password },
         {
           headers: {
@@ -19,10 +17,9 @@ const authService = {
         }
       );
 
-      // Armazena o token no localStorage após o login
       localStorage.setItem("authToken", response.data.token);
 
-      return response.data; // Retorna a resposta com o token
+      return response.data;
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       throw error;
@@ -33,11 +30,11 @@ const authService = {
     const token = localStorage.getItem("authToken");
 
     if (!token) {
-      throw new Error("Token not found");
+      throw new Error("Token não encontrado");
     }
 
     try {
-      const response = await axios.get(`${API_URL}/me`, {
+      const response = await api.get("/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

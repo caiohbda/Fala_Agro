@@ -6,6 +6,22 @@
   margin-right: 30px;
 }
 
+.create-event-button {
+  width: 200px;
+  background-color: transparent;
+  border: 2px solid green;
+  color: green;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.create-event-button:hover {
+  background-color: darkgreen;
+  color: white;
+}
+
 .feed {
   height: 74vh;
   display: grid;

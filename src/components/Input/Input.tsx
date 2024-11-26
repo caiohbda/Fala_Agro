@@ -1,17 +1,6 @@
 import React from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
 import "./style.css";
-
-interface InputProps {
-  label: string;
-  id: string;
-  type: string;
-  register: UseFormRegisterReturn;
-  error?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  maxLength?: number;
-  className?: string;
-}
+import { InputProps } from "../../interfaces/IInput";
 
 const Input: React.FC<InputProps> = ({
   label,
