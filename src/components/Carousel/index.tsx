@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useState, useEffect } from "react";
-import { fetchNoticias } from "../../services/newsService";
+import { newsService } from "../../services/newsService";
 import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -16,7 +16,7 @@ const Carousel = () => {
   useEffect(() => {
     const loadNoticias = async () => {
       try {
-        const noticias = await fetchNoticias();
+        const noticias = await newsService.getNoticias();
         setData(noticias);
       } catch (err) {
         const errorMessage =

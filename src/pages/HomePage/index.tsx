@@ -5,7 +5,7 @@ import Main from "../../components/Main";
 import News from "../../components/News";
 import Carousel from "../../components/Carousel";
 import { useEffect, useState } from "react";
-import newsService from "../../services/newsService";
+import { newsService } from "../../services/newsService";
 import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
 
 const HomePage = () => {

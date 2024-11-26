@@ -1,7 +1,5 @@
-import axios from "axios";
+import api from "../api/api";
 import { LoginResponse } from "../interfaces/ILoginResponse";
-
-const API_URL = "https://api-falaagro-production.up.railway.app";
 
 const authService = {
   login: async (
@@ -9,8 +7,8 @@ const authService = {
     password: string
   ): Promise<LoginResponse> => {
     try {
-      const response = await axios.post(
-        `${API_URL}/login`,
+      const response = await api.post(
+        "/login",
         { identifier, password },
         {
           headers: {
@@ -32,11 +30,11 @@ const authService = {
     const token = localStorage.getItem("authToken");
 
     if (!token) {
-      throw new Error("Token not found");
+      throw new Error("Token não encontrado");
     }
 
     try {
-      const response = await axios.get(`${API_URL}/me`, {
+      const response = await api.get("/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -2,7 +2,7 @@ import Header from "../../components/Header";
 import Card from "../../components/Card";
 import Footer from "../../components/Footer";
 import { useState, useEffect } from "react";
-import newsService from "../../services/newsService";
+import { newsService } from "../../services/newsService";
 import { Link } from "react-router-dom";
 import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
 import { useNavigate } from "react-router-dom";

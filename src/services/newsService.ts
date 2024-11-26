@@ -1,27 +1,37 @@
-import api from "../api/api"; // Importa a instância do axios configurada
+import api from "../api/api"; // Importando a instância configurada do axios
 import { NoticiasResponse } from "../interfaces/INoticiaAPI";
+import { CreateNoticiaBody } from "../interfaces/INoticiaAPI"; // Importando a interface para o corpo da notícia
 
-// Função para buscar as notícias usando a instância do axios configurada
-export const fetchNoticias = async (): Promise<NoticiasResponse> => {
-  try {
-    const response = await api.get<NoticiasResponse>("/noticias");
-    return response.data;
-  } catch (error) {
-    console.error("Erro ao buscar notícias:", error);
-    throw new Error("Erro ao buscar notícias.");
-  }
-};
-
-const newsService = {
+export const newsService = {
+  // Função para obter todas as notícias
   getNoticias: async (): Promise<NoticiasResponse> => {
     try {
       const response = await api.get<NoticiasResponse>("/noticias");
-      return response.data; // Retorna as notícias
+      return response.data;
     } catch (error) {
       console.error("Erro ao obter notícias:", error);
       throw error;
     }
   },
-};
 
-export default newsService;
+  // Função para criar uma nova notícia
+  createNoticia: async (
+    noticiaData: CreateNoticiaBody
+  ): Promise<NoticiasResponse> => {
+    try {
+      const response = await api.post<NoticiasResponse>(
+        "/noticias",
+        noticiaData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao criar notícia:", error);
+      throw error;
+    }
+  },
+};

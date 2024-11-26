@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import "./style.css";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
+import { newsService } from "../../services/newsService";
 
 const states = [
   "AC",
@@ -66,15 +67,22 @@ const PostNewsPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data: NewsFormData) => {
+  const onSubmit = async (data: NewsFormData) => {
+    const userId = "someUserId";
+
     const formData = {
       ...data,
       image: data.image?.[0],
+      userId,
     };
 
-    console.log("Dados da notícia:", formData);
-
-    navigate("/noticias");
+    try {
+      const response = await newsService.createNoticia(formData);
+      console.log("Notícia criada com sucesso:", response);
+      navigate("/noticias");
+    } catch (error) {
+      console.error("Erro ao criar notícia:", error);
+    }
   };
 
   return (
