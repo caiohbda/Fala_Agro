@@ -2,6 +2,7 @@ import Header from "../../components/Header";
 import Card from "../../components/Card";
 import Footer from "../../components/Footer";
 import { useFetch } from "../../hooks/useFetch";
+import { Link } from "react-router-dom";
 import { NoticiasResponse } from "../../interfaces/INoticiaAPI";
 import { useNavigate } from "react-router-dom"; // Importe o useNavigate
 import { useState } from "react";
@@ -41,11 +42,13 @@ const NewsPage = () => {
       </div>
       <main className="feed">
         {filteredNews?.slice(0, 6).map((noticia) => (
+          <Link to="/noticia">
           <Card
             key={noticia.content}
             image={noticia.image}
             title={noticia.title}
           />
+          </Link>
         ))}
       </main>
       <Footer />
