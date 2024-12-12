@@ -1,6 +1,4 @@
 import "./style.css";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import Main from "../../components/Main";
 import News from "../../components/News";
 import Carousel from "../../components/Carousel";
@@ -37,7 +35,6 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <Header />
       <Main>
         <div className="carousel-container">
           <Carousel />
@@ -51,7 +48,6 @@ const HomePage = () => {
           />
         ))}
       </Main>
-      <Footer />
     </div>
   );
 };

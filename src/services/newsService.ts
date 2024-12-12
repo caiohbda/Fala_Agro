@@ -1,9 +1,8 @@
-import api from "../api/api"; // Importando a instância configurada do axios
+import api from "../api/api";
 import { NoticiasResponse } from "../interfaces/INoticiaAPI";
-import { CreateNoticiaBody } from "../interfaces/INoticiaAPI"; // Importando a interface para o corpo da notícia
+import { CreateNoticiaBody } from "../interfaces/INoticiaAPI";
 
 export const newsService = {
-  // Função para obter todas as notícias
   getNoticias: async (): Promise<NoticiasResponse> => {
     try {
       const response = await api.get<NoticiasResponse>("/noticias");

@@ -75,7 +75,11 @@ const Header: React.FC<HeaderProps> = ({ onStateChange }) => {
               className="nav-item"
               onClick={item !== "Home" ? toggleDropdown : undefined}
             >
-              <Link className="nav-link" to={`/${item.toLowerCase()}`}>
+              <Link
+                className="nav-link"
+                to={`/${item.toLowerCase()}`}
+                onClick={() => item === "Noticias" && onStateChange("")} // Resetando o filtro ao clicar em Noticias
+              >
                 {item}
               </Link>
               {item !== "Home" && (
